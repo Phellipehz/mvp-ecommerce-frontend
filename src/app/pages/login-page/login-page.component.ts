@@ -31,7 +31,7 @@ export class LoginPageComponent implements OnInit {
         this.router.navigate(['/dashboard'])
       })
       .catch(err => {
-        $("#myModal").modal('show');
+        $(".alert").show();
       });
   }
 

@@ -12,8 +12,10 @@ export class RemoteService {
   constructor(private http: HttpClient, private tokenService : TokenPersistenceService) { }
 
   login(email:string, password:string){
-    let credentials;
-    return this.http.post<HttpResponse<Token>>("http://localhost:9000/authentication", credentials)
+    
+    let credentials = { email: email, password: password };
+
+    return this.http.post<HttpResponse<Token>>("http://localhost:8082/authentication/", credentials)
     .pipe(
       map((response : HttpResponse<Token>) => { 
         if (response.body != null) {

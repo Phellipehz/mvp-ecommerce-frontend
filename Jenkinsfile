@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        IMAGE = 'easyhealth:latest'
+        IMAGE = 'rest-api:latest'
         ECRURL = 'http://999999999999.dkr.ecr.eu-central-1.amazonaws.com'
         ECRCRED = 'ecr:eu-central-1:tap_ecr'
     }
@@ -41,8 +41,8 @@ pipeline {
         stage('Build and Implantação') { 
             steps{
                 script{
-                    docker.withRegistry("http://729788531436.dkr.ecr.us-east-2.amazonaws.com", "ecr:us-east-2:tap_ecr") {
-                        def customImage = docker.build("easyhealth-rest-api:latest")
+                    docker.withRegistry("http://.dkr.ecr.us-east-2.amazonaws.com", "ecr:us-east-2:tap_ecr") {
+                        def customImage = docker.build("rest-api:latest")
                         customImage.push()
                     }
                 }
@@ -57,7 +57,7 @@ pipeline {
     }
     post{
         always{
-           sh "docker rmi easyhealth-rest-api:latest | true"
+           sh "docker rmi rest-api:latest | true"
         }
     }
 }

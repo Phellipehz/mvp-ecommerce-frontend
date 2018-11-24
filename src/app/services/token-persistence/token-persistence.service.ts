@@ -20,7 +20,7 @@ export class TokenPersistenceService {
   }
 
   getStringToken() {
-    return this.storage.get(this.tokenField)
+    return this.storage.get(this.tokenField);
   }
 
   clearToken(){

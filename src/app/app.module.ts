@@ -14,6 +14,14 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { CheckoutItemComponent } from './components/checkout-item/checkout-item.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { ProductItemLineComponent } from './product-item-line/product-item-line.component';
+import { OrderListPageComponent } from './order-list-page/order-list-page.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
+import { OrderItemComponentComponent } from './order-item-component/order-item-component.component';
+import { OrderPageComponent } from './order-page/order-page.component';
+import { CartItemComponentComponent } from './cart-item-component/cart-item-component.component';
+import { ProductListPageComponent } from './product-list-page/product-list-page.component';
+import { NewProductPageComponent } from './new-product-page/new-product-page.component';
+import { EditProductPageComponent } from './edit-product-page/edit-product-page.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +34,14 @@ import { ProductItemLineComponent } from './product-item-line/product-item-line.
     ProductViewPageComponent,
     HomePageComponent,
     ProductItemLineComponent,
+    OrderListPageComponent,
+    CartPageComponent,
+    OrderItemComponentComponent,
+    OrderPageComponent,
+    CartItemComponentComponent,
+    ProductListPageComponent,
+    NewProductPageComponent,
+    EditProductPageComponent,
   ],
   imports: [
     BrowserModule,

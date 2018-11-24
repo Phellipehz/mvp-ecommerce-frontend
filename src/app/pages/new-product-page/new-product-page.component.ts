@@ -1,29 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-product-management-page',
-  templateUrl: './product-management-page.component.html',
-  styleUrls: ['./product-management-page.component.css']
+  selector: 'app-new-product-page',
+  templateUrl: './new-product-page.component.html',
+  styleUrls: ['./new-product-page.component.css']
 })
-export class ProductManagementPageComponent implements OnInit {
+export class NewProductPageComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  getFiles(files) {
+    return Promise.all(files.map(file => this.getFile(file)));
+  }
 
-
-}
-
-/*
-function getFiles(files) {
-        return Promise.all(files.map(file => getFile(file)));
+  onChange(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        //console.log( reader.result.split(',')[1]);
+      };
     }
+  }
 
-    //take a single JavaScript File object
-    function getFile(file) {
-        var reader = new FileReader();
+  getFile(file) {
+    var reader = new FileReader();
         return new Promise((resolve, reject) => {
             reader.onerror = () => { reader.abort(); reject(new Error("Error parsing file"));}
             reader.onload = function () {
@@ -46,13 +51,5 @@ function getFiles(files) {
         });
     }
 
-    //using the functions with your file:
 
-    file = document.querySelector('#files > input[type="file"]').files[0]
-    getFile(file).then((customJsonFile) => {
-         //customJsonFile is your newly constructed file.
-         console.log(customJsonFile);
-    });
-
-
-*/
+}

@@ -1,3 +1,5 @@
+import { CartItem } from "./cart-item";
+
 export class Product {
 	
 	id : Number;
@@ -5,6 +7,10 @@ export class Product {
 	value: Number;
 	description: string;
 	photo: string;
-	quantidade : Number;
+	amount : Number;
+
+	toCartItem(){
+		return new CartItem(this.id, this);
+	}
 
 }

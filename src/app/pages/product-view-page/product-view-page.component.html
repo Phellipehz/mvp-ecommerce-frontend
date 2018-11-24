@@ -1,4 +1,10 @@
-<p>
-  product-view-page works!
-  <!-- *ngIf="!showSearchResults" -->
-</p>
+<div *ngIf="product.amount =< 10">
+  Últimos 10 itens em estoque... Corre mah! 
+</div>
+<div>
+  <p>{{ product.name }}</p>
+  <p>{{ product.value }}</p>
+  <p>{{ product.description }}</p>
+  <p>{{ product.photo }}</p>
+  <button (click)="addCart()">Adicionar no Carrinho</button>
+</div>

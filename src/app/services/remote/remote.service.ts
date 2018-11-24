@@ -4,6 +4,7 @@ import { Token } from 'src/app/classes/token';
 import { Product } from 'src/app/classes/product';
 import { map, catchError } from 'rxjs/operators';
 import { TokenPersistenceService } from '../token-persistence/token-persistence.service';
+import { Order } from 'src/app/classes/order';
 
 @Injectable({
   providedIn: 'root'
@@ -93,6 +94,32 @@ export class RemoteService {
       map((response : HttpResponse<Boolean>) => { 
         if (response.status == 402) {
           return true;
+        } else {
+          throw new Error('Não foi possivel acessar no sistema neste momento.');
+        }
+      }))
+    .toPromise();
+  }
+
+  addOrder(order: Order){
+    return this.http.post<HttpResponse<Order>>("http://localhost:8082/order/", order)
+    .pipe(
+      map((response : HttpResponse<Order>) => { 
+        if (response.status == 402) {
+          return true;
+        } else {
+          throw new Error('Não foi possivel acessar no sistema neste momento.');
+        }
+      }))
+    .toPromise();
+  }
+
+  findAllOrders(){
+    return this.http.get<HttpResponse<Array<Order>>>("http://localhost:8082/order/")
+    .pipe(
+      map((response : HttpResponse<Array<Order>>) => { 
+        if (response.body != null) {
+          return response.body;
         } else {
           throw new Error('Não foi possivel acessar no sistema neste momento.');
         }

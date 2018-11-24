@@ -8,6 +8,8 @@ export class Product {
 	description: string;
 	photo: string;
 	amount : Number;
+	category: string;
+	shortDescription: string;
 
 	toCartItem(){
 		return new CartItem(this.id, this);

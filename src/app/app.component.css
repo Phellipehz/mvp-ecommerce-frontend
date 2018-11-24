@@ -1,0 +1,9 @@
+.error-alert{
+    margin: 5%;
+    margin-top: 1%; 
+    display: none;
+}
+
+.container{
+    min-height: 100%;
+}

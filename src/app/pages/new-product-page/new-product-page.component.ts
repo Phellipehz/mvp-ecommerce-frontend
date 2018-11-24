@@ -28,7 +28,7 @@ export class NewProductPageComponent implements OnInit {
   }
 
   getFile(file) {
-    var reader = new FileReader();
+    /*var reader = new FileReader();
         return new Promise((resolve, reject) => {
             reader.onerror = () => { reader.abort(); reject(new Error("Error parsing file"));}
             reader.onload = function () {
@@ -48,7 +48,7 @@ export class NewProductPageComponent implements OnInit {
                 });
             }
             reader.readAsArrayBuffer(file);
-        });
+        });*/
     }
 
 

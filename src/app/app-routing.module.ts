@@ -10,18 +10,16 @@ import { ProductListPageComponent } from './pages/product-list-page/product-list
 import { EditProductPageComponent } from './pages/edit-product-page/edit-product-page.component';
 import { NewProductPageComponent } from './pages/new-product-page/new-product-page.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
-import { CategoryProductListPageComponent } from './pages/category-product-list-page/category-product-list-page.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginPageComponent },
   { path: '', component: HomePageComponent },
+  { path: 'login', component: LoginPageComponent },
   { path: 'cart', component: CartPageComponent },
   { path: 'order', component: OrderPageComponent },
   { path: 'product/:id', component: ProductViewPageComponent },
-  { path: 'product/search/:term', component: SearchPageComponent },
-  { path: 'product/category/:term', component: CategoryProductListPageComponent },
-  { path: 'product/new', component: NewProductPageComponent },
+  { path: 'product/none/new', component: NewProductPageComponent },
   { path: 'product/:id/edit', component: EditProductPageComponent },
+  { path: 'search/:term', component: SearchPageComponent },
   { path: 'admin', component: ProductListPageComponent },
   { path: '**', component: PageNotFoundPageComponent }
 ];

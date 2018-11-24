@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/classes/product';
+import { RemoteService } from 'src/app/services/remote/remote.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-new-product-page',
@@ -7,9 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewProductPageComponent implements OnInit {
 
-  constructor() { }
+  product: Product = new Product();
+
+  constructor(private remote : RemoteService) { }
 
   ngOnInit() {
+  }
+
+  submitAction(){
+    this.remote.addProduct(this.product)
+      .then(res => {
+        alert("Cadastrado com sucesso")
+      })
+      .catch(err => {
+        $(".alert").show();
+      });    
   }
 
   getFiles(files) {

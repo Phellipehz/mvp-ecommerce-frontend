@@ -20,9 +20,7 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ProductItemLineComponent } from './components/product-item-line/product-item-line.component';
 import { EditProductPageComponent } from './pages/edit-product-page/edit-product-page.component';
 import { NavbarComponentComponent } from './components/navbar-component/navbar-component.component';
-import { SingupPageComponent } from './pages/singup-page/singup-page.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
-import { CategoryProductListPageComponent } from './pages/category-product-list-page/category-product-list-page.component';
 
 @NgModule({
   declarations: [
@@ -41,9 +39,7 @@ import { CategoryProductListPageComponent } from './pages/category-product-list-
     NewProductPageComponent,
     EditProductPageComponent,
     NavbarComponentComponent,
-    SingupPageComponent,
     SearchPageComponent,
-    CategoryProductListPageComponent,
   ],
   imports: [
     BrowserModule,

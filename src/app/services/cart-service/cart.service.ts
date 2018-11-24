@@ -11,7 +11,15 @@ export class CartService {
   constructor(@Inject(SESSION_STORAGE) private storage: StorageService) { }
 
   hasEmptyCart(){
-    return this.storage.get(this.cartField) != null;
+    return this.storage.get(this.cartField) == null;
+  }
+
+  cartItensCount(){
+    let obj: Array<CartItem> = JSON.parse(this.storage.get(this.cartField));
+    if(obj != null){
+      return obj.length;
+    }
+    return 0;
   }
 
   getCartItens(){

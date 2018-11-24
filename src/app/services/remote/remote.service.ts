@@ -11,13 +11,15 @@ import { Order } from 'src/app/classes/order';
 })
 export class RemoteService {
 
+  host: string = "http://localhost:8082/";
+
   constructor(private http: HttpClient, private tokenService : TokenPersistenceService) { }
 
   login(email:string, password:string){
     
     let credentials = { email: email, password: password };
 
-    return this.http.post<HttpResponse<Token>>("http://localhost:8082/authentication/", credentials)
+    return this.http.post<HttpResponse<Token>>(this.host + "authentication", credentials)
     .pipe(
       map((response : HttpResponse<Token>) => { 
         if (response.body != null) {
@@ -31,7 +33,7 @@ export class RemoteService {
   }
 
   findAllProducts(){
-    return this.http.get<HttpResponse<Array<Product>>>("http://localhost:8082/product/")
+    return this.http.get<HttpResponse<Array<Product>>>(this.host + "product")
     .pipe(
       map((response : HttpResponse<Array<Product>>) => { 
         if (response.body != null) {
@@ -44,7 +46,7 @@ export class RemoteService {
   }
 
   findProduct(id: Number){
-    return this.http.get<HttpResponse<Product>>("http://localhost:8082/product/"+ id)
+    return this.http.get<HttpResponse<Product>>(this.host + "product/" + id)
     .pipe(
       map((response : HttpResponse<Product>) => { 
         if (response.body != null) {
@@ -57,7 +59,7 @@ export class RemoteService {
   }
 
   addProduct(product: Product){
-    return this.http.post<HttpResponse<Product>>("http://localhost:8082/product/", product)
+    return this.http.post<HttpResponse<Product>>(this.host + "product", product)
     .pipe(
       map((response : HttpResponse<Product>) => { 
         if (response.body != null) {
@@ -73,7 +75,7 @@ export class RemoteService {
     let id = product.id;
     product.id = null;
 
-    return this.http.put<HttpResponse<Product>>("http://localhost:8082/product/" + id, product)
+    return this.http.put<HttpResponse<Product>>(this.host + "product/" + id, product)
     .pipe(
       map((response : HttpResponse<Product>) => { 
         if (response.body != null) {
@@ -89,7 +91,7 @@ export class RemoteService {
     let id = product.id;
     product.id = null;
 
-    return this.http.delete<HttpResponse<Boolean>>("http://localhost:8082/product/" + id)
+    return this.http.delete<HttpResponse<Boolean>>(this.host + "product/" + id)
     .pipe(
       map((response : HttpResponse<Boolean>) => { 
         if (response.status == 402) {
@@ -102,7 +104,7 @@ export class RemoteService {
   }
 
   addOrder(order: Order){
-    return this.http.post<HttpResponse<Order>>("http://localhost:8082/order/", order)
+    return this.http.post<HttpResponse<Order>>(this.host + "order", order)
     .pipe(
       map((response : HttpResponse<Order>) => { 
         if (response.status == 402) {
@@ -115,9 +117,48 @@ export class RemoteService {
   }
 
   findAllOrders(){
-    return this.http.get<HttpResponse<Array<Order>>>("http://localhost:8082/order/")
+    return this.http.get<HttpResponse<Array<Order>>>(this.host + "order")
     .pipe(
       map((response : HttpResponse<Array<Order>>) => { 
+        if (response.body != null) {
+          return response.body;
+        } else {
+          throw new Error('Não foi possivel acessar no sistema neste momento.');
+        }
+      }))
+    .toPromise();
+  }
+
+  findProductsByNameOrCategory(term: string){
+    return this.http.get<HttpResponse<Array<Product>>>(this.host + "product/search/"+ term)
+    .pipe(
+      map((response : HttpResponse<Array<Product>>) => { 
+        if (response.body != null) {
+          return response.body;
+        } else {
+          throw new Error('Não foi possivel acessar no sistema neste momento.');
+        }
+      }))
+    .toPromise();
+  }
+
+  findProductsByCategory(term: string){
+    return this.http.get<HttpResponse<Array<Product>>>(this.host + "product/category/"+ term)
+    .pipe(
+      map((response : HttpResponse<Array<Product>>) => { 
+        if (response.body != null) {
+          return response.body;
+        } else {
+          throw new Error('Não foi possivel acessar no sistema neste momento.');
+        }
+      }))
+    .toPromise();
+  }
+
+  getAllCategories(){
+    return this.http.get<HttpResponse<Array<string>>>(this.host + "product/category")
+    .pipe(
+      map((response : HttpResponse<Array<string>>) => { 
         if (response.body != null) {
           return response.body;
         } else {

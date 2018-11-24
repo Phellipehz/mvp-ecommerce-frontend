@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/classes/product';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RemoteService } from 'src/app/services/remote/remote.service';
+import { CartService } from 'src/app/services/cart-service/cart.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-search-page',
@@ -7,9 +13,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchPageComponent implements OnInit {
 
-  constructor() { }
+  products: Array<Product> = new Array<Product>();
+
+  constructor(private route: ActivatedRoute,
+    private router: Router, private remote : RemoteService, private cart: CartService) { }
 
   ngOnInit() {
+    let term = this.route.snapshot.paramMap.get('term');
+    this.findProducts(term);
+
+    this.products.push(new Product());
+    this.products.push(new Product());
+    this.products.push(new Product());
+    this.products.push(new Product()); 
+  }
+
+  findProducts(term: string){
+    this.remote.findProductsByNameOrCategory(term)
+    .then(res => {
+      this.products = res;
+    })
+    .catch(err => {
+      $(".alert").show();
+    });    
   }
 
 }

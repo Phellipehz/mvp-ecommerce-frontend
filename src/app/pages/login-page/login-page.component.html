@@ -1,96 +1,20 @@
-<body>
   <div class="container">
-    <form #customerForm="ngForm" class="form-signin">
-      <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-      <label for="inputEmail" class="sr-only">Email</label>
-      <input [(ngModel)]="email" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="" />
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input [(ngModel)]="password" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="" />
-      <button (click)="loginAction()" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-    </form>
+      <div class="card">
+        <article class="card-body">
+        <h4 class="card-title mb-4 mt-1">Login</h4>
+        <form #customerForm="ngForm" class="form-signin">
+          <div class="form-group">
+            <label>Your email</label>
+            <input [(ngModel)]="email" name="email" class="form-control" placeholder="Email" type="email">
+          </div> 
+          <div class="form-group">
+            <label>Your password</label>
+            <input [(ngModel)]="password" name="password" class="form-control" placeholder="******" type="password">
+          </div> 
+          <div class="form-group">
+            <button (click)="loginAction()" type="submit" class="btn btn-primary btn-block"> Login  </button>
+          </div>                                                         
+        </form>
+      </article>
+    </div> 
   </div>
-</body>
-
-
-
-<div id="code_login_1">
-  <div class="card">
-  <article class="card-body">
-  <a href="" class="float-right btn btn-outline-primary">Sign up</a>
-  <h4 class="card-title mb-4 mt-1">Sign in</h4>
-     <form>
-      <div class="form-group">
-        <label>Your email</label>
-          <input name="" class="form-control" placeholder="Email" type="email">
-      </div> <!-- form-group// -->
-      <div class="form-group">
-        <a class="float-right" href="#">Forgot?</a>
-        <label>Your password</label>
-          <input class="form-control" placeholder="******" type="password">
-      </div> <!-- form-group// --> 
-      <div class="form-group"> 
-      <div class="checkbox">
-        <label> <input type="checkbox"> Save password </label>
-      </div> <!-- checkbox .// -->
-      </div> <!-- form-group// -->  
-      <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block"> Login  </button>
-      </div> <!-- form-group// -->                                                           
-  </form>
-  </article>
-  </div> <!-- card.// -->
-  </div>
-
-
-  <div id="code_filter_3">
-    <div class="card">
-      <article class="card-group-item">
-        <header class="card-header">
-          <h6 class="title">Range input </h6>
-        </header>
-          <div class="card-body">
-          <input class="custom-range" min="0" max="100" name="" type="range">
-          <div class="form-row">
-          <div class="form-group col-md-6">
-            <label>Min</label>
-            <input type="number" class="form-control" id="inputEmail4" placeholder="$0">
-          </div>
-          <div class="form-group col-md-6 text-right">
-            <label>Max</label>
-            <input type="number" class="form-control" placeholder="$1,0000">
-          </div>
-          </div>
-          </div> <!-- card-body.// -->
-      </article> <!-- card-group-item.// -->
-      <article class="card-group-item">
-        <header class="card-header">
-          <h6 class="title">Selection </h6>
-        </header>
-          <div class="card-body">
-            <div class="custom-control custom-checkbox">
-              <span class="float-right badge badge-light round">52</span>
-                <input type="checkbox" class="custom-control-input" id="Check1">
-                <label class="custom-control-label" for="Check1">Samsung</label>
-            </div> <!-- form-check.// -->
-    
-            <div class="custom-control custom-checkbox">
-              <span class="float-right badge badge-light round">132</span>
-                <input type="checkbox" class="custom-control-input" id="Check2">
-               <label class="custom-control-label" for="Check2">Black berry</label>
-            </div> <!-- form-check.// -->
-    
-            <div class="custom-control custom-checkbox">
-              <span class="float-right badge badge-light round">17</span>
-                <input type="checkbox" class="custom-control-input" id="Check3">
-                <label class="custom-control-label" for="Check3">Samsung</label>
-            </div> <!-- form-check.// -->
-    
-            <div class="custom-control custom-checkbox">
-              <span class="float-right badge badge-light round">7</span>
-                <input type="checkbox" class="custom-control-input" id="Check4">
-                <label class="custom-control-label" for="Check4">Other Brand</label>
-            </div> <!-- form-check.// -->
-          </div> <!-- card-body.// -->
-      </article> <!-- card-group-item.// -->
-    </div> <!-- card.// -->
-    </div>

@@ -9,7 +9,7 @@ import { Order } from 'src/app/classes/order';
 export class OrderItemComponentComponent implements OnInit {
 
   @Input()
-  order : Order;
+  order: Order;
 
   constructor() { }
 

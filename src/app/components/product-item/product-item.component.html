@@ -1,36 +1,13 @@
-<!-- <div>
-	<a href="/{{product.id}}">
-		<p>{{product.name}}</p>
-	</a>
-	<p>{{product.value}}</p>
-	<p>{{product.photo}}</p>
-</div> -->
-
 <div class="card h-100">
 	<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 	<div class="card-body">
 		<h4 class="card-title">
-			<a href="#">Item One</a>
+			<a href="/product/{{product.id}}">{{product.name}}</a>
 		</h4>
-		<h5>$24.99</h5>
-		<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+		<h5>R$ {{product.value}}</h5>
+		<p class="card-text">{{product.shortDescription}}</p>
 	</div>
 	<div class="card-footer">
-		<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+		<button (click)="addCart(1)" class="btn btn-link btn-sm">Adicionar ao carrinho</button>
 	</div>
 </div>
-
-
-
-<!-- <div class="card">
-	<figure class="itemside">
-	<div class="aside"><div class="img-wrap img-sm border-right"><img src="images/items/3.jpg"></div></div>
-	<figcaption class="p-3">
-		<h6 class="title"><a href="#">Some name of item goes here nice</a></h6>
-		<div class="price-wrap">
-			<span class="price-new b">$1280</span>
-			<del class="price-old text-muted">$1980</del>
-		</div> 
-	</figcaption>
-</figure> 
-</div> -->

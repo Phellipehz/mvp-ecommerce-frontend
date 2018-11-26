@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/classes/product';
-import { RemoteService } from 'src/app/services/remote/remote.service';
+import {Component, OnInit } from '@angular/core';
+import {Product } from 'src/app/classes/product';
+import {RemoteService } from 'src/app/services/remote/remote.service';
+import {ActivatedRoute, Router } from '@angular/router';
 
 declare var $: any;
 
@@ -13,59 +14,44 @@ export class NewProductPageComponent implements OnInit {
 
   product: Product = new Product();
 
-  constructor(private remote : RemoteService) { }
+  constructor(private remote: RemoteService, private route: ActivatedRoute,
+    private router: Router) {}
 
   ngOnInit() {
   }
 
-  submitAction(){
-    this.remote.addProduct(this.product)
-      .then(res => {
-        alert("Cadastrado com sucesso")
-      })
-      .catch(err => {
-        $(".alert").show();
-      });    
+  confirm() {
+    alert('Cadastrado com sucesso');
+
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
+
+    setTimeout(function() {
+      this.router.navigate(['/administration']);
+    });
   }
 
-  getFiles(files) {
-    return Promise.all(files.map(file => this.getFile(file)));
+  submitAction() {
+    console.log(this.product);
+    this.remote.addProduct(this.product)
+      .then(res => {
+        confirm();
+      })
+      .catch(err => {
+        $('.alert').show();
+      });
   }
 
   onChange(event) {
-    let reader = new FileReader();
-    if(event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        //console.log( reader.result.split(',')[1]);
+        this.product.photo = reader.result.toString();
       };
     }
   }
-
-  getFile(file) {
-    /*var reader = new FileReader();
-        return new Promise((resolve, reject) => {
-            reader.onerror = () => { reader.abort(); reject(new Error("Error parsing file"));}
-            reader.onload = function () {
-
-                //This will result in an array that will be recognized by C#.NET WebApi as a byte[]
-                let bytes = Array.from(new Uint8Array(this.result));
-
-                //if you want the base64encoded file you would use the below line:
-                let base64StringFile = btoa(bytes.map((item) => String.fromCharCode(item)).join(""));
-
-                //Resolve the promise with your custom file structure
-                resolve({ 
-                    bytes: bytes,
-                    base64StringFile: base64StringFile,
-                    fileName: file.name, 
-                    fileType: file.type
-                });
-            }
-            reader.readAsArrayBuffer(file);
-        });*/
-    }
-
 
 }

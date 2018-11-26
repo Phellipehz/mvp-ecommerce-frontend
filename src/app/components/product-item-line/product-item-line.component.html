@@ -1,51 +1,21 @@
-<div>
-    <p>{{product.name}}</p>
-    <p>{{product.value}}</p>
-    <p>{{product.photo}}</p>
-</div>
-<div>
-  <button (click)="deleteAction()">Deletar</button>
-  <button (click)="updateAction()">Atualizar</button>
-</div>
-
-
-
-
 <td>
-    <figure class="media">
-      <div class="img-wrap"><img src="images/items/3.jpg" class="img-thumbnail img-sm"></div>
-      <figcaption class="media-body">
-        <h6 class="title text-truncate">Product name goes here </h6>
-        <dl class="dlist-inline small">
-          <dt>Size: </dt>
-          <dd>XXL</dd>
-        </dl>
-        <dl class="dlist-inline small">
-          <dt>Color: </dt>
-          <dd>Orange color</dd>
-        </dl>
-      </figcaption>
-    </figure>
-  </td>
-  <td>
-    <select class="form-control">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-    </select>
-  </td>
-  <td>
-    <div class="price-wrap">
-        <p>{{product.name}}</p>
-        <p>{{product.value}}</p>
-        <p>{{product.photo}}</p>
-      <var class="price">USD 45</var>
-      <small class="text-muted">(USD15 each)</small>
-    </div> <!-- price-wrap .// -->
-  </td>
-  <td class="text-right">
-    <a title="" href="" class="btn btn-outline-success" data-toggle="tooltip" data-original-title="Save to Wishlist"> 
-      <i class="fa fa-heart"></i></a>
-    <a href="" (click)="deleteAction()" class="btn btn-outline-danger btn-round"> × Remove</a>
-  </td>
+  <figure class="media">
+    <div class="img-wrap">
+      <img src="{{product.photo}}" class="img-thumbnail img-sm" />
+    </div>
+    <figcaption class="media-body">
+      <h6 class="title text-truncate">{{product.name}}</h6>
+      {{product.shortDescription}}<br />
+      {{product.description}}
+    </figcaption>
+  </figure>
+</td>
+<td>
+  <div class="price-wrap">
+    <var class="price">R$ {{product.value}}</var>
+  </div>
+</td>
+<td class="text-right">
+  <a href="product/{{product.id}}/edit" class="btn btn-outline-success" data-toggle="tooltip">Update</a>
+  <button (click)="deleteAction()" class="btn btn-outline-danger btn-round"> × Remove</button>
+</td>

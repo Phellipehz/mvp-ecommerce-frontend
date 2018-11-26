@@ -16,16 +16,18 @@ export class OrderPageComponent implements OnInit {
   constructor(private remote: RemoteService) { }
 
   ngOnInit() {
+    this.getAllOrders();
   }
 
-  getAllOrders(){
+  getAllOrders() {
     this.remote.findAllOrders()
       .then(res => {
         this.orders = res;
       })
       .catch(err => {
-        $(".alert").show();
-      });    
+        console.error(err);
+        $('.alert').show();
+      });
   }
 
 }

@@ -16,26 +16,21 @@ export class SearchPageComponent implements OnInit {
   products: Array<Product> = new Array<Product>();
 
   constructor(private route: ActivatedRoute,
-    private router: Router, private remote : RemoteService, private cart: CartService) { }
+    private router: Router, private remote: RemoteService, private cart: CartService) { }
 
   ngOnInit() {
-    let term = this.route.snapshot.paramMap.get('term');
+    const term = this.route.snapshot.paramMap.get('term');
     this.findProducts(term);
-
-    this.products.push(new Product());
-    this.products.push(new Product());
-    this.products.push(new Product());
-    this.products.push(new Product()); 
   }
 
-  findProducts(term: string){
+  findProducts(term: string) {
     this.remote.findProductsByNameOrCategory(term)
     .then(res => {
       this.products = res;
     })
     .catch(err => {
-      $(".alert").show();
-    });    
+      console.log(err);
+      $('.alert').show();
+    });
   }
-
 }

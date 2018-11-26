@@ -25,14 +25,18 @@
     <div class="box">
       <dl class="dlist-align">
             <dt>Total itens: </dt>
-            <dd class="text-right"> 1 </dd>
+            <dd class="text-right">{{itensCount}}</dd>
         </dl>
       <dl class="dlist-align">
         <dt>Total cost: </dt>
-        <dd class="text-right h5 b"> USD195 </dd>
+        <dd class="text-right h5 b">R$ {{itensPrice}}</dd>
       </dl>
       <dl class="dlist-align">
-        <button type="submit" class="btn btn-primary btn-block">Confirm Order</button>
+        <button *ngIf="isLogged" (click)="confirmOrder()" type="submit" class="btn btn-primary btn-block">Confirm Order</button>
+        <div *ngIf="!isLogged">
+            <dt>Please login to confirm your order, you won't lose your cart itens!</dt>
+          <a (click)="confirmOrder()" type="submit" class="btn btn-primary btn-block">Login</a>
+        </div>
       </dl>
     </div>
   </div>

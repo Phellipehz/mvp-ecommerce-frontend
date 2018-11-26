@@ -16,12 +16,12 @@ export class ProductItemLineComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteAction(){
+  deleteAction() {
     // TODO chama o remoto
   }
 
-  updateAction(){
-    //TODO abre em outra pagina
+  updateAction() {
+    // TODO abre em outra pagina
   }
 
 }

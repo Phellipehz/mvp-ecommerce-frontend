@@ -28,12 +28,11 @@ export class ProductViewPageComponent implements OnInit {
     this.remote.findProductsByNameOrCategory(this.product.category)
       .then(res => {
         this.relatedProducts = res;
-
       })
       .catch(err => {
         console.log(err);
         $('.alert').show();
-      });     
+      });
   }
 
   addCart(amount: Number) {

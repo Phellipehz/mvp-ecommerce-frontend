@@ -1,10 +1,24 @@
-<div *ngIf="product.amount =< 10">
-  Últimos 10 itens em estoque... Corre mah! 
-</div>
-<div>
-  <p>{{ product.name }}</p>
-  <p>{{ product.value }}</p>
-  <p>{{ product.description }}</p>
-  <p>{{ product.photo }}</p>
-  <button (click)="addCart()">Adicionar no Carrinho</button>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <h1 class="my-4">Related</h1>
+      <div class="list-group" *ngFor="let related of relatedProducts">
+        <a href="/product/{{related.id}}" class="list-group-item">{{related.name}} <br/> R$ {{related.value}}</a>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div *ngIf="product.amount <= 10">
+        <h4>Últimos 10 itens em estoque... Corre mah!</h4> 
+      </div>
+      <div class="card mt-4">
+        <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+        <div class="card-body">
+          <button type="button" class="btn btn-primary" style="float: right; top: -20px;" (click)="addCart()">Adicionar no Carrinho</button>
+          <h3 class="card-title">{{product.name}}</h3> <!-- <p>{{ product.name }}</p> -->
+          <h4>{{product.value}}</h4> <!-- <p>{{ product.value }}</p> -->
+          <p class="card-text">{{product.description}}</p>
+        </div>
+      </div> 
+    </div>
+  </div>
 </div>

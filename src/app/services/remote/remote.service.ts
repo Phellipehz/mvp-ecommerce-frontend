@@ -1,28 +1,35 @@
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Token } from 'src/app/classes/token';
-import { Product } from 'src/app/classes/product';
-import { map, catchError } from 'rxjs/operators';
-import { TokenPersistenceService } from '../token-persistence/token-persistence.service';
-import { Order } from 'src/app/classes/order';
+import {Injectable, Inject } from '@angular/core';
+import {HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import {Token } from 'src/app/classes/token';
+import {Product } from 'src/app/classes/product';
+import {map, catchError } from 'rxjs/operators';
+import {TokenPersistenceService } from '../token-persistence/token-persistence.service';
+import {Order } from 'src/app/classes/order';
+import {debug } from 'util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RemoteService {
 
-  constructor(private http: HttpClient, private tokenService : TokenPersistenceService) { }
+  host = 'http://localhost:8082/';
 
-  login(email:string, password:string){
-    
-    let credentials = { email: email, password: password };
+  constructor(private http: HttpClient, private tokenService: TokenPersistenceService) {}
 
-    return this.http.post<HttpResponse<Token>>("http://localhost:8082/authentication/", credentials)
+  getHeadersWithAuthentication() {
+    const header = new HttpHeaders();
+    header.set('Authorization', this.tokenService.getStringToken());
+    return header;
+  }
+
+  login(email: string, password: string) {
+    const credentials = {email: email, password: password };
+    return this.http.post<Token>(this.host + 'authentication', credentials)
     .pipe(
-      map((response : HttpResponse<Token>) => { 
-        if (response.body != null) {
-          this.tokenService.saveToken(response.body); 
-          return response.body;
+      map((response: Token) => {
+        if (response != null) {
+          this.tokenService.saveToken(response);
+          return response;
         } else {
           throw new Error('Não foi possivel logar no sistema neste momento.');
         }
@@ -30,70 +37,53 @@ export class RemoteService {
     .toPromise();
   }
 
-  findAllProducts(){
-    return this.http.get<HttpResponse<Array<Product>>>("http://localhost:8082/product/")
-    .pipe(
-      map((response : HttpResponse<Array<Product>>) => { 
-        if (response.body != null) {
-          return response.body;
-        } else {
-          throw new Error('Não foi possivel acessar no sistema neste momento.');
-        }
-      }))
-    .toPromise();
+  findAllProducts() {
+    return this.http.get<Array<Product>>(this.host + 'product').toPromise();
   }
 
-  findProduct(id: Number){
-    return this.http.get<HttpResponse<Product>>("http://localhost:8082/product/"+ id)
-    .pipe(
-      map((response : HttpResponse<Product>) => { 
-        if (response.body != null) {
-          return response.body;
-        } else {
-          throw new Error('Não foi possivel acessar no sistema neste momento.');
-        }
-      }))
-    .toPromise();
+  findProduct(id: Number) {
+    return this.http.get<Product>(this.host + 'product/' + id).toPromise();
   }
 
-  addProduct(product: Product){
-    return this.http.post<HttpResponse<Product>>("http://localhost:8082/product/", product)
-    .pipe(
-      map((response : HttpResponse<Product>) => { 
-        if (response.body != null) {
-          return response.body;
-        } else {
-          throw new Error('Não foi possivel acessar no sistema neste momento.');
-        }
-      }))
-    .toPromise();
+  addProduct(product: Product) {
+    return this.http.post<Product>(this.host + 'product', product).toPromise();
   }
 
-  updateProduct(product: Product){
-    let id = product.id;
+  updateProduct(product: Product) {
+    const id = product.id;
     product.id = null;
 
-    return this.http.put<HttpResponse<Product>>("http://localhost:8082/product/" + id, product)
-    .pipe(
-      map((response : HttpResponse<Product>) => { 
-        if (response.body != null) {
-          return response.body;
-        } else {
-          throw new Error('Não foi possivel acessar no sistema neste momento.');
-        }
-      }))
-    .toPromise();
+    return this.http.put<Product>(this.host + 'product/' + id, product).toPromise();
   }
 
-  deleteProduct(product: Product){
-    let id = product.id;
+  deleteProduct(product: Product) {
+    const id = product.id;
     product.id = null;
 
-    return this.http.delete<HttpResponse<Boolean>>("http://localhost:8082/product/" + id)
+    return this.http.delete<Boolean>(this.host + 'product/' + id)
     .pipe(
-      map((response : HttpResponse<Boolean>) => { 
-        if (response.status == 402) {
-          return true;
+      map((response: Boolean) => {
+        // if (response.status == 402) {
+        //   return true;
+        // } else {
+        //   throw new Error('Não foi possivel acessar no sistema neste momento.');
+        // }
+      }))
+    .toPromise();
+  }
+
+  addOrder(order: Order) {
+    return this.http.post<Order>(this.host + 'order', order).toPromise();
+  }
+
+  findAllOrders() {
+    const header = this.getHeadersWithAuthentication();
+    const opt = {headers: header };
+    return this.http.get<Array<Order>>(this.host + 'order', opt)
+    .pipe(
+      map((response: Array<Order>) => {
+        if (response != null) {
+          return response;
         } else {
           throw new Error('Não foi possivel acessar no sistema neste momento.');
         }
@@ -101,12 +91,12 @@ export class RemoteService {
     .toPromise();
   }
 
-  addOrder(order: Order){
-    return this.http.post<HttpResponse<Order>>("http://localhost:8082/order/", order)
+  findProductsByNameOrCategory(term: string) {
+    return this.http.get<Array<Product>>(this.host + 'product/search/' + term)
     .pipe(
-      map((response : HttpResponse<Order>) => { 
-        if (response.status == 402) {
-          return true;
+      map((response: Array<Product>) => {
+        if (response != null) {
+          return response;
         } else {
           throw new Error('Não foi possivel acessar no sistema neste momento.');
         }
@@ -114,17 +104,8 @@ export class RemoteService {
     .toPromise();
   }
 
-  findAllOrders(){
-    return this.http.get<HttpResponse<Array<Order>>>("http://localhost:8082/order/")
-    .pipe(
-      map((response : HttpResponse<Array<Order>>) => { 
-        if (response.body != null) {
-          return response.body;
-        } else {
-          throw new Error('Não foi possivel acessar no sistema neste momento.');
-        }
-      }))
-    .toPromise();
+  getAllCategories() {
+    return this.http.get<Array<string>>(this.host + 'product/category').toPromise();
   }
 
 }

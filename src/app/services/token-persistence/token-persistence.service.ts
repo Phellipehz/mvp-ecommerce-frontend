@@ -1,21 +1,21 @@
-import { Injectable, Inject } from '@angular/core';
-import { Token } from 'src/app/classes/token';
-import { SESSION_STORAGE, StorageService } from 'angular-webstorage-service';
+import {Injectable, Inject } from '@angular/core';
+import {Token } from 'src/app/classes/token';
+import {SESSION_STORAGE, StorageService } from 'angular-webstorage-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenPersistenceService {
 
-  tokenField : string = "authtoken";
+  tokenField = 'authtoken';
 
-  constructor(@Inject(SESSION_STORAGE) private storage: StorageService) { }
+  constructor(@Inject(SESSION_STORAGE) private storage: StorageService) {}
 
-  hasToken(){
+  hasToken() {
     return this.storage.get(this.tokenField) != null;
   }
 
-  saveToken(token: Token){
+  saveToken(token: Token) {
     this.storage.set(this.tokenField, token.token);
   }
 
@@ -23,7 +23,7 @@ export class TokenPersistenceService {
     return this.storage.get(this.tokenField);
   }
 
-  clearToken(){
+  clearToken() {
     this.storage.remove(this.tokenField);
   }
 

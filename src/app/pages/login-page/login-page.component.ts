@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { RemoteService } from 'src/app/services/remote/remote.service';
-import { Router } from '@angular/router';
-import { TokenPersistenceService } from 'src/app/services/token-persistence/token-persistence.service';
+import {Component, OnInit, Inject } from '@angular/core';
+import {RemoteService } from 'src/app/services/remote/remote.service';
+import {Router } from '@angular/router';
+import {TokenPersistenceService } from 'src/app/services/token-persistence/token-persistence.service';
+import decode from 'jwt-decode';
 
 declare var $: any;
 
@@ -12,27 +13,39 @@ declare var $: any;
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private remote: RemoteService, private router: Router, 
-    private tokenService : TokenPersistenceService) { }
+  constructor(private remote: RemoteService, private router: Router, private tokenService: TokenPersistenceService) {}
 
   email: string;
   password: string;
 
   ngOnInit() {
-    let token = this.tokenService.getStringToken();
-    if(token != null){
-      this.router.navigate(['/dashboard']);
-    }
+    this.redirect();
   }
 
-  loginAction(){
+  loginAction() {
     this.remote.login(this.email, this.password)
       .then(res => {
-        this.router.navigate(['/dashboard'])
+        this.redirect();
       })
       .catch(err => {
-        $(".alert").show();
+        console.error(err);
+        $('.alert').show();
       });
+  }
+
+  redirect() {
+    const token = this.tokenService.getStringToken();
+    if (this.tokenService.hasToken()) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.role.authority === 'ADMINISTRATOR') {
+        this.router.navigate(['/administration']);
+      } else if (decodedToken.role.authority === 'CLIENT') {
+        this.router.navigate(['/']);
+      } else {
+        this.router.navigate(['/']);
+      }
+    }
   }
 
 }

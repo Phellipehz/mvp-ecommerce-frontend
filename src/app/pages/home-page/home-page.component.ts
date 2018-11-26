@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { RemoteService } from 'src/app/services/remote/remote.service';
-import { Product } from 'src/app/classes/product';
+import {Component, OnInit } from '@angular/core';
+import {RemoteService } from 'src/app/services/remote/remote.service';
+import {Product } from 'src/app/classes/product';
 
 declare var $: any;
 
@@ -11,22 +11,36 @@ declare var $: any;
 })
 export class HomePageComponent implements OnInit {
 
-  products : Array<Product> = new Array<Product>();
+  products: Array<Product> = new Array<Product>();
+  categories: Array<string> = new Array<string>();
 
-  constructor(private remote: RemoteService) { }
+  constructor(private remote: RemoteService) {}
 
   ngOnInit() {
     this.getProductsItens();
+    this.getAllCategories();
   }
 
-  getProductsItens(){
+  getProductsItens() {
     this.remote.findAllProducts()
       .then(res => {
         this.products = res;
       })
       .catch(err => {
-        $(".alert").show();
-      });    
+        console.log(err);
+        $('.alert').show();
+      });
+  }
+
+  getAllCategories() {
+    this.remote.getAllCategories()
+      .then(res => {
+        this.categories = res;
+      })
+      .catch(err => {
+        console.log(err);
+        $('.alert').show();
+      });
   }
 
 }

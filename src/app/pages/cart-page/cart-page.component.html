@@ -1,11 +1,11 @@
 <div class="container">
-  <div class="alert alert-danger error-alert" *ngIf="emptyCart" role="alert">
-    O carrinho está vazio!
+  <div class="alert alert-danger error-alert" *ngIf="emptyCart || itensCount == 0" role="alert">
+    O carrinho está vazio! 
   </div>
-  <div class="row" *ngIf="!emptyCart">
+  <div class="row" *ngIf="!emptyCart || itensCount > 0">
     <app-cart-table [itens]="itens"></app-cart-table>
   </div>
-  <div class="row" *ngIf="!emptyCart">
+  <div class="row" *ngIf="!emptyCart || itensCount > 0">
     <div class="box bx" >
       <dl class="dlist-align">
             <dt>Total itens: </dt>

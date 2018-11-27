@@ -19,7 +19,7 @@ import { NavbarComponentComponent } from './components/navbar-component/navbar-c
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { CartTableComponent } from './components/cart-table/cart-table.component';
 import { ProductTableComponent } from './components/product-table/product-table.component';
-import { OrderTableComponent } from './components/order-table/order-table.component';
+import { OrderItensTableComponent } from './components/order-itens-table/order-itens-table.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { OrderTableComponent } from './components/order-table/order-table.compon
     SearchPageComponent,
     ProductTableComponent,
     CartTableComponent,
-    OrderTableComponent
+    OrderItensTableComponent
   ],
   imports: [
     BrowserModule,

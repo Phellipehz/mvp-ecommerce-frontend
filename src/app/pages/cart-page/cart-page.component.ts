@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject } from '@angular/core';
+import {Component, OnInit, Inject, SimpleChanges } from '@angular/core';
 import {RemoteService } from 'src/app/services/remote/remote.service';
 import {SESSION_STORAGE, StorageService } from 'angular-webstorage-service';
 import {CartService } from 'src/app/services/cart-service/cart.service';
@@ -49,16 +49,23 @@ export class CartPageComponent implements OnInit {
       });
   }
 
+  teste() {
+    this.itens.forEach( (value) => {
+      this.itensPrice = this.itensPrice + (value.product.value.valueOf() * value.amount.valueOf());
+      this.itensCount = this.itensCount + value.amount.valueOf();
+    });
+  }
+
   getCartItens() {
     this.itens = this.cart.getCartItens();
     if (!this.cart.hasEmptyCart()) {
       this.itens.forEach( (value) => {
         this.remote.findProduct(value.product.id).then(res => {
           value.product = res;
-          this.itensPrice = this.itensPrice + res.value.valueOf();
-          this.itensCount = this.itensCount + 1;
+          this.teste();
         })
         .catch(err => {
+          console.log(err);
           $('.alert').show();
         });
       });

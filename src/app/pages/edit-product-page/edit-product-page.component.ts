@@ -19,13 +19,7 @@ export class EditProductPageComponent implements OnInit {
 
   confirm() {
     alert('Atualizado com sucesso');
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
-
-    setTimeout(function() {
-      this.router.navigate(['/administration']);
-    });
+    this.router.navigate(['/administration']);
   }
 
   ngOnInit() {
@@ -41,15 +35,16 @@ export class EditProductPageComponent implements OnInit {
   }
 
   submitAction() {
-  
-    this.remote.updateProduct(this.product)
-    .then(res => {
-      confirm();
-    })
-    .catch(err => {
-      console.log(err);
-      $('.alert').show();
-    });
+    if(this.product != null){
+      this.remote.updateProduct(this.product)
+      .then(res => {
+        confirm();
+      })
+      .catch(err => {
+        console.log(err);
+        $('.alert').show();
+      });
+    }
   }
 
   onChange(event) {

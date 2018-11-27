@@ -22,14 +22,7 @@ export class NewProductPageComponent implements OnInit {
 
   confirm() {
     alert('Cadastrado com sucesso');
-
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
-
-    setTimeout(function() {
-      this.router.navigate(['/administration']);
-    });
+    this.router.navigate(['/administration']);
   }
 
   submitAction() {

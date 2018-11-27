@@ -31,7 +31,21 @@ export class CartService {
 
   addCartItem(item: OrderItem) {
     let obj: Array<OrderItem> = JSON.parse(this.storage.get(this.cartField)) || [];
-    obj.push(item);
+    
+
+    var index = -1;
+    for (var oi of obj) {
+      if(oi.product.id === item.product.id){
+        index = obj.indexOf(oi);
+      }
+    }
+
+    if(index == -1){
+      obj.push(item);
+    }else{
+      obj[index].amount = obj[index].amount.valueOf() + 1;
+    }
+    
     this.storage.set(this.cartField, JSON.stringify(obj));
     alert('Item adicionado ao carrinho!');
   }

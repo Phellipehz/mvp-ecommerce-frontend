@@ -5,6 +5,8 @@ import {CartService } from 'src/app/services/cart-service/cart.service';
 import {Product } from 'src/app/classes/product';
 import {OrderItem } from 'src/app/classes/order-item';
 import {TokenPersistenceService } from 'src/app/services/token-persistence/token-persistence.service';
+import { Order } from 'src/app/classes/order';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare var $: any;
 
@@ -17,11 +19,12 @@ export class CartPageComponent implements OnInit {
 
   itens: Array<OrderItem> = new Array<OrderItem>();
   emptyCart: Boolean;
-  itensCount: number;
-  itensPrice: number;
+  itensCount: number = 0;
+  itensPrice: number = 0;
   isLogged: Boolean;
 
-  constructor(@Inject(SESSION_STORAGE) private storage: StorageService, private cart: CartService, 
+  constructor(
+  private route: ActivatedRoute, private router: Router, @Inject(SESSION_STORAGE) private storage: StorageService, private cart: CartService, 
   private remote: RemoteService, private token: TokenPersistenceService) {}
 
   ngOnInit() {
@@ -31,7 +34,19 @@ export class CartPageComponent implements OnInit {
   }
 
   confirmOrder() {
+    const order = new Order();
+    order.products = this.itens;
 
+    this.remote.addOrder(order)
+      .then(res => {
+        alert("Compra finalizada!");
+        this.cart.clearCart();
+        this.router.navigate(['/']);
+      })
+      .catch(err => {
+        console.log(err);
+        $('.alert').show();
+      });
   }
 
   getCartItens() {

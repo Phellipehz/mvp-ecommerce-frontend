@@ -35,17 +35,19 @@ export class EditProductPageComponent implements OnInit {
       this.product = res;
     })
     .catch(err => {
+      console.log(err);
       $('.alert').show();
     });
   }
 
   submitAction() {
-    console.log(this.product);
+  
     this.remote.updateProduct(this.product)
     .then(res => {
       confirm();
     })
     .catch(err => {
+      console.log(err);
       $('.alert').show();
     });
   }

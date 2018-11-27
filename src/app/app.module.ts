@@ -9,17 +9,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { OrderItemComponentComponent } from './components/order-item-component/order-item-component.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { ProductViewPageComponent } from './pages/product-view-page/product-view-page.component';
 import { NewProductPageComponent } from './pages/new-product-page/new-product-page.component';
 import { ProductListPageComponent } from './pages/product-list-page/product-list-page.component';
-import { CartItemComponentComponent } from './components/cart-item-component/cart-item-component.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
-import { ProductItemLineComponent } from './components/product-item-line/product-item-line.component';
 import { EditProductPageComponent } from './pages/edit-product-page/edit-product-page.component';
 import { NavbarComponentComponent } from './components/navbar-component/navbar-component.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { CartTableComponent } from './components/cart-table/cart-table.component';
+import { ProductTableComponent } from './components/product-table/product-table.component';
+import { OrderTableComponent } from './components/order-table/order-table.component';
 
 @NgModule({
   declarations: [
@@ -29,16 +29,16 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
     ProductItemComponent,
     ProductViewPageComponent,
     HomePageComponent,
-    ProductItemLineComponent,
     CartPageComponent,
-    OrderItemComponentComponent,
     OrderPageComponent,
-    CartItemComponentComponent,
     ProductListPageComponent,
     NewProductPageComponent,
     EditProductPageComponent,
     NavbarComponentComponent,
     SearchPageComponent,
+    ProductTableComponent,
+    CartTableComponent,
+    OrderTableComponent
   ],
   imports: [
     BrowserModule,

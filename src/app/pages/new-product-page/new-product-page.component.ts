@@ -39,6 +39,7 @@ export class NewProductPageComponent implements OnInit {
         confirm();
       })
       .catch(err => {
+        console.error(err);
         $('.alert').show();
       });
   }

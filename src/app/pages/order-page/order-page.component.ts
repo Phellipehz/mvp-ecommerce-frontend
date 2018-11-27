@@ -22,7 +22,7 @@ export class OrderPageComponent implements OnInit {
   getAllOrders() {
     this.remote.findAllOrders()
       .then(res => {
-        this.orders = res;
+        this.orders = res || [];
       })
       .catch(err => {
         console.error(err);

@@ -3,26 +3,10 @@
     O carrinho está vazio!
   </div>
   <div class="row" *ngIf="!emptyCart">
-    <div class="card">
-      <table class="table table-hover shopping-cart-wrap">
-        <thead class="text-muted">
-          <tr>
-            <th scope="col">Product</th>
-            <th scope="col" width="120">Amount</th>
-            <th scope="col" width="120">Price</th>
-            <th scope="col" class="text-right" width="200">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of itens">
-            <app-cart-item-component [item]="item"></app-cart-item-component>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <app-cart-table [itens]="itens"></app-cart-table>
   </div>
   <div class="row" *ngIf="!emptyCart">
-    <div class="box">
+    <div class="box bx" >
       <dl class="dlist-align">
             <dt>Total itens: </dt>
             <dd class="text-right">{{itensCount}}</dd>

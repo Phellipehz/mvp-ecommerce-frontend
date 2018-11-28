@@ -10,38 +10,43 @@ import {ProductListPageComponent } from './pages/product-list-page/product-list-
 import {EditProductPageComponent } from './pages/edit-product-page/edit-product-page.component';
 import {NewProductPageComponent } from './pages/new-product-page/new-product-page.component';
 import {SearchPageComponent } from './pages/search-page/search-page.component';
-
+import { RoleGuardService } from './routers/role-guard/role-guard.service';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent },
   {path: 'login', component: LoginPageComponent },
-  {path: 'cart', component: CartPageComponent },
+  {path: 'cart', component: CartPageComponent,
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRole: 'CLIENT'
+    }
+  },
   {path: 'product/:id', component: ProductViewPageComponent },
   {path: 'search/:term', component: SearchPageComponent },
   {path: 'order', component: OrderPageComponent,
-    // canActivate: [RoleGuardService],
-    // data: {
-    //   expectedRole: 'ADMINISTRATOR'
-    // }
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRole: 'ADMINISTRATOR'
+    }
   },
   {path: 'product/none/new', component: NewProductPageComponent,
-    // canActivate: [RoleGuardService],
-    // data: {
-    //   expectedRole: 'ADMINISTRATOR'
-    // }
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRole: 'ADMINISTRATOR'
+    }
   },
   {path: 'product/:id/edit', component: EditProductPageComponent,
-    // canActivate: [RoleGuardService],
-    // data: {
-    //   expectedRole: 'ADMINISTRATOR'
-    // }
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRole: 'ADMINISTRATOR'
+    }
   },
   {path: 'administration',
     component: ProductListPageComponent,
-    // canActivate: [RoleGuardService],
-    // data: {
-    //   expectedRole: 'ADMINISTRATOR'
-    // }
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRole: 'ADMINISTRATOR'
+    }
   },
   {path: '**', component: PageNotFoundPageComponent },
 ];

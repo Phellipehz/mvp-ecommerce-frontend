@@ -49,26 +49,35 @@ export class CartPageComponent implements OnInit {
       });
   }
 
-  teste() {
-    this.itens.forEach( (value) => {
-      this.itensPrice = this.itensPrice + (value.product.value.valueOf() * value.amount.valueOf());
-      this.itensCount = this.itensCount + value.amount.valueOf();
-    });
-  }
-
   getCartItens() {
     this.itens = this.cart.getCartItens();
     if (!this.cart.hasEmptyCart()) {
       this.itens.forEach( (value) => {
-        this.remote.findProduct(value.product.id).then(res => {
-          value.product = res;
-          this.teste();
-        })
-        .catch(err => {
-          console.log(err);
-          $('.alert').show();
-        });
+          this.remote.findProduct(value.product.id).then(res => {
+            value.product = res;
+
+            // var has = true;
+            // this.itens.forEach( (fp) => {
+            //   if(fp.product.value == null){
+            //     has = false;
+            //   }
+            // });
+
+            // if(!has){
+              //debugger;
+              this.itensPrice = this.itensPrice + (value.product.value.valueOf() * value.amount.valueOf());
+              this.itensCount = this.itensCount + value.amount.valueOf();
+            // }
+
+          })
+          .catch(err => {
+            console.log(err);
+            $('.alert').show();
+          });
+        
       });
+
+
     }
   }
 }

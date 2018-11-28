@@ -5,7 +5,7 @@ export class Product {
     value: Number;
     description: string;
     photo: string;
-    amount: Number;
+    amount: number;
     category: string;
     shortDescription: string;
 }

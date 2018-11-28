@@ -11,18 +11,12 @@ export class RoleGuardService implements CanActivate {
   constructor(public token: TokenPersistenceService, public router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-
-    // this will be passed from the route config
-    // on the data property
     const expectedRole = route.data.expectedRole;
-
-    const token = localStorage.getItem('token');
-
-    // decode the token to get its payload
+    const token = this.token.getStringToken();
     const tokenPayload = decode(token);
 
-    if (!this.token.hasToken() || tokenPayload.role !== expectedRole) {
-      this.router.navigate(['login']);
+    if (!this.token.hasToken() || tokenPayload.role.authority !== expectedRole) {
+      this.router.navigate(['/login']);
       return false;
     }
     return true;

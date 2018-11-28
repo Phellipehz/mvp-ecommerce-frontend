@@ -55,7 +55,12 @@ export class CartService {
     for (var oi of obj) {
       if( (oi.product.id === item.product.id) && (oi.amount === item.amount) ) {
         var index = obj.indexOf(oi);
-        obj.splice(index, 1);
+        if(oi.amount > 1){
+          oi.amount = oi.amount - 1;
+        }else{
+          obj.splice(index, 1);
+        }
+        
         break;
       }
     }

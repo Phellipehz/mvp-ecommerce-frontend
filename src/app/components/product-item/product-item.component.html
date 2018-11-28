@@ -7,7 +7,7 @@
 		<h5>R$ {{product.value}}</h5>
 		<p class="card-text">{{product.shortDescription}}</p>
 	</div>
-	<div class="card-footer">
+	<div class="card-footer" *ngIf="role === 'CLIENT'" >
 		<button (click)="addCart(1)" class="btn btn-link btn-sm">Adicionar ao carrinho</button>
 	</div>
 </div>

@@ -4,6 +4,8 @@ import {ActivatedRoute, Router, ParamMap } from '@angular/router';
 import {RemoteService } from 'src/app/services/remote/remote.service';
 import {CartService } from 'src/app/services/cart-service/cart.service';
 import {OrderItem } from 'src/app/classes/order-item';
+import { TokenPersistenceService } from 'src/app/services/token-persistence/token-persistence.service';
+import decode from 'jwt-decode';
 
 declare var $: any;
 
@@ -16,12 +18,21 @@ export class ProductViewPageComponent implements OnInit {
 
   product: Product;
   relatedProducts: Array<Product>;
+  role: string;
+  isLogged: Boolean;
 
   constructor( private route: ActivatedRoute,
-    private router: Router, private remote: RemoteService, private cart: CartService) {}
+    private router: Router, private remote: RemoteService, private cart: CartService, 
+    private token: TokenPersistenceService) {}
 
   ngOnInit() {
     this.getProduct();
+    this.isLogged = this.token.hasToken();
+
+    if (this.isLogged) {
+      const tokenPayload = decode(this.token.getStringToken());
+      this.role = tokenPayload.role.authority;
+    }
   }
 
   getRelatedProducts() {
@@ -35,7 +46,7 @@ export class ProductViewPageComponent implements OnInit {
       });
   }
 
-  addCart(amount: Number) {
+  addCart(amount: number) {
     const item = new OrderItem();
     const product = new Product();
     product.id = this.product.id;

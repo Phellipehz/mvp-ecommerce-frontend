@@ -19,7 +19,7 @@ export class EditProductPageComponent implements OnInit {
     private router: Router, private remote: RemoteService) {}
 
   confirm() {
-    swal("Produto atualizado!", "Produto atualizado com sucesso!", "success")
+    swal("Product updated!", "Product updated successfully!", "success")
     .then((value) => {
       this.router.navigate(['/administration']);
     });
@@ -33,7 +33,7 @@ export class EditProductPageComponent implements OnInit {
     })
     .catch(err => {
       console.log(err);
-      swal("Oops", "Não foi possivel obter dados do produto...", "error");
+      swal("Oops", "It wasn't possible to get data from remove server...", "error");
     });
   }
 
@@ -45,7 +45,7 @@ export class EditProductPageComponent implements OnInit {
       })
       .catch(err => {
         console.log(err);
-        swal("Oops", "Não foi possivel atualizar dados do produto...", "error");
+        swal("Oops", "It wasn't possible to update product on remove server...", "error");
       });
     }
   }

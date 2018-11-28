@@ -15,12 +15,7 @@ import { RoleGuardService } from './routers/role-guard/role-guard.service';
 const routes: Routes = [
   {path: '', component: HomePageComponent },
   {path: 'login', component: LoginPageComponent },
-  {path: 'cart', component: CartPageComponent,
-    canActivate: [RoleGuardService],
-    data: {
-      expectedRole: 'CLIENT'
-    }
-  },
+  {path: 'cart', component: CartPageComponent },
   {path: 'product/:id', component: ProductViewPageComponent },
   {path: 'search/:term', component: SearchPageComponent },
   {path: 'order', component: OrderPageComponent,

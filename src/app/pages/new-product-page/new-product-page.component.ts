@@ -21,7 +21,7 @@ export class NewProductPageComponent implements OnInit {
   }
 
   confirm() {
-    swal("Produto salvo!", "Produto cadastrado com sucesso!", "success")
+    swal("Product inserted!", "Product inserted successfully!", "success")
     .then((value) => {
       this.router.navigate(['/administration']);
     });
@@ -35,7 +35,7 @@ export class NewProductPageComponent implements OnInit {
       })
       .catch(err => {
         console.error(err);
-        swal("Oops", "Não foi possivel salvar produto do servidor remoto...", "error");
+        swal("Oops", "It wasn't possible to save product on remove server...", "error");
       });
   }
 

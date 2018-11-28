@@ -20,7 +20,13 @@ export class CartTableComponent implements OnInit {
 
   deleteAction(item) {
     this.cart.removeCartItens(item);
-    window.location.reload();
+    swal("Product Removed!", "The product was removed from cart..", "success")
+    .then((value) => {
+      this.router.routeReuseStrategy.shouldReuseRoute = function() {
+        return false;
+      };
+      this.router.navigate([''], { queryParams: { reload: 1 } });
+    });
   }
 
 }

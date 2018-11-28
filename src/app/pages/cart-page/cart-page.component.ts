@@ -47,7 +47,7 @@ export class CartPageComponent implements OnInit {
       })
       .catch(err => {
         console.log(err);
-        swal("Oops", "Não foi possivel finalizar sua compra...", "error");
+        swal("Oops", "It wasn't possible to confirm your order, try again later...", "error");
       });
   }
 
@@ -74,7 +74,7 @@ export class CartPageComponent implements OnInit {
         })
           .catch(err => {
             console.log(err);
-            swal("Oops", "Não foi possivel obter dados do servidor remoto...", "error");
+            swal("Oops", "It wasn't possible to get data from remove server...", "error");
             this.emptyCart = true;
           });
       });

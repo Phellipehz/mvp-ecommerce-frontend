@@ -42,8 +42,11 @@ export class CartService {
     }
 
     if(index >= 0){
-      if(product.amount <= obj[index].amount){
-        swal("Calma aí jovem!", "Você não pode adicionar mais itens do que tem no estoque... Você ja adicionou todos os disponíveis....", "error");
+      let gado = obj[index].amount >= product.amount;
+      debugger;
+      if(obj[index].amount >= product.amount){
+        swal("Hold on Jackie Boy!", "No more products available for add to cart...", "error");
+        return;
       }
     }
 
@@ -55,7 +58,7 @@ export class CartService {
     
     this.storage.set(this.cartField, JSON.stringify(obj));
     
-    swal("Produto Adicionado!", "O produto foi adicionado ao carrinho", "success")
+    swal("Produto added!", "Product added to cart!", "success")
     .then((value) => {
       this.router.routeReuseStrategy.shouldReuseRoute = function() {
         return false;

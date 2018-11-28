@@ -1,7 +1,8 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import {RemoteService } from 'src/app/services/remote/remote.service';
 import {Product } from 'src/app/classes/product';
+import swal from 'sweetalert';
 
 declare var $: any;
 
@@ -18,8 +19,10 @@ export class EditProductPageComponent implements OnInit {
     private router: Router, private remote: RemoteService) {}
 
   confirm() {
-    alert('Atualizado com sucesso');
-    this.router.navigate(['/administration']);
+    swal("Produto atualizado!", "Produto atualizado com sucesso!", "success")
+    .then((value) => {
+      this.router.navigate(['/administration']);
+    });
   }
 
   ngOnInit() {
@@ -30,7 +33,7 @@ export class EditProductPageComponent implements OnInit {
     })
     .catch(err => {
       console.log(err);
-      $('.alert').show();
+      swal("Oops", "Não foi possivel obter dados do produto...", "error");
     });
   }
 
@@ -38,11 +41,11 @@ export class EditProductPageComponent implements OnInit {
     if(this.product != null){
       this.remote.updateProduct(this.product)
       .then(res => {
-        confirm();
+        this.confirm();
       })
       .catch(err => {
         console.log(err);
-        $('.alert').show();
+        swal("Oops", "Não foi possivel atualizar dados do produto...", "error");
       });
     }
   }

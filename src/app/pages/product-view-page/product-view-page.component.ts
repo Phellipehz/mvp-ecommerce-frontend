@@ -52,7 +52,7 @@ export class ProductViewPageComponent implements OnInit {
     product.id = this.product.id;
     item.product = product;
     item.amount = amount;
-    this.cart.addCartItem(item);
+    this.cart.addCartItem(item, product);
   }
 
   getProduct() {

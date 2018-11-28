@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild } from '@angular/core';
 import {Product } from 'src/app/classes/product';
 import {RemoteService } from 'src/app/services/remote/remote.service';
 import {ActivatedRoute, Router } from '@angular/router';
@@ -21,19 +21,21 @@ export class NewProductPageComponent implements OnInit {
   }
 
   confirm() {
-    alert('Cadastrado com sucesso');
-    this.router.navigate(['/administration']);
+    swal("Produto salvo!", "Produto cadastrado com sucesso!", "success")
+    .then((value) => {
+      this.router.navigate(['/administration']);
+    });
   }
 
   submitAction() {
     console.log(this.product);
     this.remote.addProduct(this.product)
       .then(res => {
-        confirm();
+        this.confirm();
       })
       .catch(err => {
         console.error(err);
-        $('.alert').show();
+        swal("Oops", "Não foi possivel salvar produto do servidor remoto...", "error");
       });
   }
 

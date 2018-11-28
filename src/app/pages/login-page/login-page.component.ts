@@ -38,6 +38,12 @@ export class LoginPageComponent implements OnInit {
     if (this.tokenService.hasToken()) {
       const decodedToken = decode(token);
 
+      this.router.routeReuseStrategy.shouldReuseRoute = function() {
+        return false;
+        // or
+        //return true;
+      };
+
       if (decodedToken.role.authority === 'ADMINISTRATOR') {
         this.router.navigate(['/administration']);
       } else if (decodedToken.role.authority === 'CLIENT') {

@@ -3,6 +3,7 @@ import {SESSION_STORAGE, StorageService } from 'angular-webstorage-service';
 import {OrderItem } from 'src/app/classes/order-item';
 import { Order } from 'src/app/classes/order';
 import { Product } from 'src/app/classes/product';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { Product } from 'src/app/classes/product';
 export class CartService {
 
   cartField = 'cart-itens';
-  constructor(@Inject(SESSION_STORAGE) private storage: StorageService) {}
+  constructor(@Inject(SESSION_STORAGE) private storage: StorageService, 
+  private route: ActivatedRoute, private router: Router) {}
 
   hasEmptyCart() {
     return this.storage.get(this.cartField) == null || this.storage.get(this.cartField).length == 0;
@@ -29,14 +31,19 @@ export class CartService {
     return obj;
   }
 
-  addCartItem(item: OrderItem) {
+  addCartItem(item: OrderItem, product: Product) {
     let obj: Array<OrderItem> = JSON.parse(this.storage.get(this.cartField)) || [];
-    
 
     var index = -1;
     for (var oi of obj) {
       if(oi.product.id === item.product.id){
         index = obj.indexOf(oi);
+      }
+    }
+
+    if(index >= 0){
+      if(product.amount <= obj[index].amount){
+        swal("Calma aí jovem!", "Você não pode adicionar mais itens do que tem no estoque... Você ja adicionou todos os disponíveis....", "error");
       }
     }
 
@@ -47,7 +54,14 @@ export class CartService {
     }
     
     this.storage.set(this.cartField, JSON.stringify(obj));
-    alert('Item adicionado ao carrinho!');
+    
+    swal("Produto Adicionado!", "O produto foi adicionado ao carrinho", "success")
+    .then((value) => {
+      this.router.routeReuseStrategy.shouldReuseRoute = function() {
+        return false;
+      };
+      this.router.navigate([''], { queryParams: { reload: 1 } });
+    });
   }
 
   removeCartItens(item: OrderItem) {

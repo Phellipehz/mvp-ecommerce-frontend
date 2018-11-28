@@ -11,8 +11,8 @@ import {Order } from 'src/app/classes/order';
 })
 export class RemoteService {
 
-  //host = 'http://ec2-3-16-164-126.us-east-2.compute.amazonaws.com:8082/';
-  host = "http://localhost:8082/";
+  host = 'http://ec2-3-16-164-126.us-east-2.compute.amazonaws.com:8082/';
+  //host = "http://localhost:8082/";
 
   constructor(private http: HttpClient, private tokenService: TokenPersistenceService) {}
 

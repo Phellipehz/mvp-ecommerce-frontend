@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "publish": "node server.js",
+    "publish": "sudo nohup node server.js",
     "postinstall": "ng build --aot --prod"
   },
   "private": true,
